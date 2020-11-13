@@ -1,0 +1,316 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Question.h"
+#include "Applicants.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TQuestionForm *QuestionForm;
+//---------------------------------------------------------------------------
+__fastcall TQuestionForm::TQuestionForm(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TQuestionForm::ButtonNoClick(TObject *Sender)
+{
+QuestionForm->Hide();
+ApplicantsForm->Enabled=true;
+ApplicantsForm->Show();
+
+
+	 //ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOQueryApplicants;
+	if(ApplicantsForm->EditPoisk->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOQueryApplicants;
+
+	ApplicantsForm->ADOQueryApplicants->Active = false;
+	ApplicantsForm->ADOQueryApplicants->SQL->Text = "Select * from ApplicantsPoit where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoisk->Text);
+	ApplicantsForm->ADOQueryApplicants->Active = true;
+	}
+
+	ApplicantsForm->DataSourceKD->DataSet = ApplicantsForm->ADOTableKD;
+
+	if(ApplicantsForm->EditPoiskKD->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourceKD->DataSet = ApplicantsForm->ADOQueryKD;
+
+	ApplicantsForm->ADOQueryKD->Active = false;
+	ApplicantsForm->ADOQueryKD->SQL->Text = "Select * from ApplicantsKd where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoiskKD->Text);
+	ApplicantsForm->ADOQueryKD->Active = true;
+	}
+
+	ApplicantsForm->DataSourcePed->DataSet = ApplicantsForm->ADOTablePed;
+
+	if(ApplicantsForm->EditPoiskPed->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourcePed->DataSet = ApplicantsForm->ADOQueryPed;
+
+	ApplicantsForm->ADOQueryPed->Active = false;
+	ApplicantsForm->ADOQueryPed->SQL->Text = "Select * from ApplicantsPed where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoiskPed->Text);
+	ApplicantsForm->ADOQueryPed->Active = true;
+	}
+
+	ApplicantsForm->DataSourceEl->DataSet = ApplicantsForm->ADOTableEl;
+
+	if(ApplicantsForm->EditPoiskEl->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourceEl->DataSet = ApplicantsForm->ADOQueryEl;
+
+	ApplicantsForm->ADOQueryEl->Active = false;
+	ApplicantsForm->ADOQueryEl->SQL->Text = "Select * from ApplicantsEl where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoiskEl->Text);
+	ApplicantsForm->ADOQueryEl->Active = true;
+	}
+
+    	
+}
+//---------------------------------------------------------------------------
+void __fastcall TQuestionForm::ButtonYesClick(TObject *Sender)
+{
+
+if(ApplicantsForm->PageControlApplicants->ActivePage==ApplicantsForm->POITSheet)
+{
+ /*
+ApplicantsForm->ADOQueryApplicants->Open();
+
+ApplicantsForm->ADOQueryApplicants->Delete();
+ApplicantsForm->ADOQueryApplicants->First();
+
+	ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOQueryKD;
+
+		ApplicantsForm->ADOQueryApplicants->Active = false;
+		ApplicantsForm->ADOQueryApplicants->SQL->Text = "Select * from ApplicantsKd";
+		ApplicantsForm->ADOQueryApplicants->Active = true;
+
+	ApplicantsForm->EditPoisk->Text = "¬ведите фамилию абитуриента";
+	ApplicantsForm->EditPoisk->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoisk->Text=="¬ведите фамилию абитуриента" || ApplicantsForm->EditPoisk->Text=="") {
+		ApplicantsForm->ButtonPoisk->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoisk->Enabled=true;
+	}
+
+ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOTableApplicants;
+ShowMessage("јбитуриент был удален");
+  */
+
+
+
+if(ApplicantsForm->DataSourceApplicants->DataSet == ApplicantsForm->ADOTableApplicants)
+{
+ApplicantsForm->ADOTableApplicants->Open();
+ApplicantsForm->ADOTableApplicants->Delete();
+}
+else
+{
+ApplicantsForm->ADOQueryApplicants->Open();
+ApplicantsForm->ADOQueryApplicants->Delete();
+}
+
+
+
+	ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOQueryApplicants;
+
+		ApplicantsForm->ADOQueryApplicants->Active = false;
+		ApplicantsForm->ADOQueryApplicants->SQL->Text = "Select * from ApplicantsPoit";
+		ApplicantsForm->ADOQueryApplicants->Active = true;
+
+	ApplicantsForm->EditPoisk->Text = "¬ведите фамилию абитуриента";
+	ApplicantsForm->EditPoisk->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoisk->Text=="¬ведите фамилию абитуриента" || ApplicantsForm->EditPoisk->Text=="") {
+		ApplicantsForm->ButtonPoisk->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoisk->Enabled=true;
+	}
+
+ShowMessage("јбитуриент был удален");
+
+}
+//
+
+if(ApplicantsForm->PageControlApplicants->ActivePage==ApplicantsForm->KDSheet)
+{
+
+
+if(ApplicantsForm->DataSourceKD->DataSet == ApplicantsForm->ADOTableKD)
+{
+ApplicantsForm->ADOTableKD->Open();
+ApplicantsForm->ADOTableKD->Delete();
+}
+else
+{
+ApplicantsForm->ADOQueryKD->Open();
+ApplicantsForm->ADOQueryKD->Delete();
+}
+
+
+		ApplicantsForm->DataSourceKD->DataSet = ApplicantsForm->ADOQueryKD;
+
+		ApplicantsForm->ADOQueryKD->Active = false;
+		ApplicantsForm->ADOQueryKD->SQL->Text = "Select * from ApplicantsKd";
+		ApplicantsForm->ADOQueryKD->Active = true;
+
+	ApplicantsForm->EditPoiskKD->Text = "¬ведите фамилию абитуриента";
+	ApplicantsForm->EditPoiskKD->Font->Color = clGray;
+
+
+	if (ApplicantsForm->EditPoiskKD->Text=="¬ведите фамилию абитуриента" || ApplicantsForm->EditPoiskKD->Text=="") {
+		ApplicantsForm->ButtonPoiskKD->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoiskKD->Enabled=true;
+	}
+
+
+ShowMessage("јбитуриент был удален");
+}
+
+//
+
+if(ApplicantsForm->PageControlApplicants->ActivePage==ApplicantsForm->PedSheet)
+{
+if(ApplicantsForm->DataSourcePed->DataSet == ApplicantsForm->ADOTablePed)
+{
+ApplicantsForm->ADOTablePed->Open();
+ApplicantsForm->ADOTablePed->Delete();
+}
+else
+{
+ApplicantsForm->ADOQueryPed->Open();
+ApplicantsForm->ADOQueryPed->Delete();
+}
+
+
+	ApplicantsForm->DataSourcePed->DataSet = ApplicantsForm->ADOQueryPed;
+
+		ApplicantsForm->ADOQueryPed->Active = false;
+		ApplicantsForm->ADOQueryPed->SQL->Text = "Select * from ApplicantsPed";
+		ApplicantsForm->ADOQueryPed->Active = true;
+
+	ApplicantsForm->EditPoiskPed->Text = "¬ведите фамилию абитуриента";
+	ApplicantsForm->EditPoiskPed->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoiskPed->Text=="¬ведите фамилию абитуриента" || ApplicantsForm->EditPoiskPed->Text=="") {
+		ApplicantsForm->ButtonPoiskPed->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoiskPed->Enabled=true;
+	}
+
+ShowMessage("јбитуриент был удален");
+}
+//
+
+if(ApplicantsForm->PageControlApplicants->ActivePage==ApplicantsForm->TabSheetEl)
+{
+ApplicantsForm->ADOQueryEl->Open();
+
+//ApplicantsForm->ADOQueryEl->Delete();
+
+ApplicantsForm->ADOTableEl->Open();
+
+ApplicantsForm->ADOTableEl->Delete();
+
+
+	ApplicantsForm->DataSourceEl->DataSet = ApplicantsForm->ADOQueryEl;
+
+		ApplicantsForm->ADOQueryEl->Active = false;
+		ApplicantsForm->ADOQueryEl->SQL->Text = "Select * from ApplicantsEl";
+		ApplicantsForm->ADOQueryEl->Active = true;
+
+	ApplicantsForm->EditPoiskEl->Text = "¬ведите фамилию абитуриента";
+	ApplicantsForm->EditPoiskEl->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoiskEl->Text=="¬ведите фамилию абитуриента" || ApplicantsForm->EditPoiskEl->Text=="") {
+		ApplicantsForm->ButtonPoiskEl->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoiskEl->Enabled=true;
+	}
+
+ShowMessage("јбитуриент был удален");
+}
+QuestionForm->Hide();
+ApplicantsForm->Enabled=true;
+ApplicantsForm->Show();
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TQuestionForm::FormClose(TObject *Sender, TCloseAction &Action)
+{
+QuestionForm->Hide();
+ApplicantsForm->Enabled=true;
+ApplicantsForm->Show();
+
+
+ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOTableApplicants;
+
+	if(ApplicantsForm->EditPoisk->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOQueryApplicants;
+
+	ApplicantsForm->ADOQueryApplicants->Active = false;
+	ApplicantsForm->ADOQueryApplicants->SQL->Text = "Select * from Applicants where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoisk->Text);
+	ApplicantsForm->ADOQueryApplicants->Active = true;
+	}
+
+	ApplicantsForm->DataSourceKD->DataSet = ApplicantsForm->ADOTableKD;
+
+	if(ApplicantsForm->EditPoiskKD->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourceKD->DataSet = ApplicantsForm->ADOQueryKD;
+
+	ApplicantsForm->ADOQueryKD->Active = false;
+	ApplicantsForm->ADOQueryKD->SQL->Text = "Select * from Applicants where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoiskKD->Text);
+	ApplicantsForm->ADOQueryKD->Active = true;
+	}
+
+	ApplicantsForm->DataSourcePed->DataSet = ApplicantsForm->ADOTablePed;
+
+	if(ApplicantsForm->EditPoiskPed->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourcePed->DataSet = ApplicantsForm->ADOQueryPed;
+
+	ApplicantsForm->ADOQueryPed->Active = false;
+	ApplicantsForm->ADOQueryPed->SQL->Text = "Select * from Applicants where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoiskPed->Text);
+	ApplicantsForm->ADOQueryPed->Active = true;
+	}
+
+	ApplicantsForm->DataSourceEl->DataSet = ApplicantsForm->ADOTableEl;
+
+	if(ApplicantsForm->EditPoiskEl->Text!="¬ведите фамилию абитуриента")
+	{
+	ApplicantsForm->DataSourceEl->DataSet = ApplicantsForm->ADOQueryEl;
+
+	ApplicantsForm->ADOQueryEl->Active = false;
+	ApplicantsForm->ADOQueryEl->SQL->Text = "Select * from Applicants where Surname=" +
+		QuotedStr(ApplicantsForm->EditPoiskEl->Text);
+	ApplicantsForm->ADOQueryEl->Active = true;
+	}
+}
+//---------------------------------------------------------------------------
+
+

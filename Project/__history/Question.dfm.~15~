@@ -1,0 +1,64 @@
+object QuestionForm: TQuestionForm
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'QuestionForm'
+  ClientHeight = 127
+  ClientWidth = 523
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object LabelQ: TLabel
+    Left = 30
+    Top = 24
+    Width = 459
+    Height = 25
+    AutoSize = False
+    Caption = #1042#1099' '#1076#1077#1081#1089#1090#1074#1080#1090#1077#1083#1100#1085#1086' '#1093#1086#1090#1080#1090#1077' '#1091#1076#1072#1083#1080#1090#1100' '#1101#1090#1086#1075#1086' '#1072#1073#1080#1090#1091#1088#1080#1077#1085#1090#1072'?'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Bahnschrift SemiCondensed'
+    Font.Style = []
+    ParentFont = False
+  end
+  object ButtonNo: TButton
+    Left = 89
+    Top = 74
+    Width = 88
+    Height = 34
+    Cursor = crHandPoint
+    Caption = #1053#1077#1090
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Bahnschrift SemiCondensed'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnClick = ButtonNoClick
+  end
+  object ButtonYes: TButton
+    Left = 329
+    Top = 74
+    Width = 88
+    Height = 34
+    Cursor = crHandPoint
+    Caption = #1044#1072
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Bahnschrift SemiCondensed'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = ButtonYesClick
+  end
+end

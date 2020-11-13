@@ -1,0 +1,187 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "QuestionFull.h"
+#include "Applicants.h"
+#include "Full.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TQuestionFullForm *QuestionFullForm;
+
+AnsiString sur;
+//---------------------------------------------------------------------------
+__fastcall TQuestionFullForm::TQuestionFullForm(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TQuestionFullForm::ButtonNoClick(TObject *Sender)
+{
+QuestionFullForm->Hide();
+FullForm->Enabled=true;
+FullForm->Show();
+ /*
+if (!FullForm->ADOQueryFull->FieldByName("id")->IsNull)
+{
+	sur= FullForm->ADOQueryFull->FieldByName("Surname")->AsString;
+} */
+    FullForm->DataSourceFull->DataSet = FullForm->ADOTableFull;
+	
+	if(FullForm->EditPoiskFull->Text!="Введите фамилию абитуриента")
+	{
+	FullForm->DataSourceFull->DataSet = FullForm->ADOQueryFull;
+
+	FullForm->ADOQueryFull->Active = false;
+	FullForm->ADOQueryFull->SQL->Text = "Select * from Applicants where Surname=" +
+		QuotedStr(FullForm->EditPoiskFull->Text);
+	FullForm->ADOQueryFull->Active = true;
+	}
+
+	if(FullForm->DateTimePicker->Date=="01.01.2020" && FullForm->DateTimePicker->Date==Now())
+	{
+		FullForm->DataSourceFull->DataSet = FullForm->ADOQueryFull;
+
+
+		FullForm->ADOQueryFull->Close();
+		FullForm->ADOQueryFull->SQL->Clear();
+		FullForm->ADOQueryFull->SQL->Add("SELECT * FROM Applicants WHERE [Application date] between :Date1 and :Date2");
+		FullForm->ADOQueryFull->Parameters->ParamByName("Date1")->Value = StrToDate(FullForm->DateTimePicker->Date);
+		FullForm->ADOQueryFull->Parameters->ParamByName("Date2")->Value = StrToDate(FullForm->DateTimePicker1->Date);
+		FullForm->ADOQueryFull->Open();
+
+	if (FullForm->ADOQueryFull->FieldByName("id")->IsNull) {
+		//ShowMessage("Нет абитуриентов, подавших заявку в это время");
+		FullForm->ADOQueryFull->Active = false;
+		FullForm->ADOQueryFull->SQL->Text = "Select * from Applicants";
+		FullForm->ADOQueryFull->Active = true;
+
+		FullForm->DateTimePicker->Date=StrToDate("01.01.2020");
+		FullForm->DateTimePicker1->Date=Now();
+
+		FullForm->ButtonPoiskFull->Enabled=false;
+	}
+	}
+
+	/*
+	if (FullForm->ADOQueryFull->FieldByName("id")->IsNull) {
+		//ShowMessage("Не найден абитуриент с такой фамилией");
+		FullForm->ADOQueryFull->Active = false;
+		FullForm->ADOQueryFull->SQL->Text = "Select * from Applicants";
+		FullForm->ADOQueryFull->Active = true;
+
+		FullForm->EditPoiskFull->Text = "Введите фамилию абитуриента";
+		FullForm->EditPoiskFull->Font->Color = clGray;
+
+        FullForm->ButtonPoiskFull->Enabled=false;
+	}   */
+}
+//---------------------------------------------------------------------------
+void __fastcall TQuestionFullForm::ButtonYesClick(TObject *Sender)
+{
+
+ FullForm->ADOQueryFull->Open(); /*
+while(FullForm->ADOTableFull->FieldByName("id")->Value == FullForm->ADOQueryFull->FieldByName("id")->AsInteger)
+{
+   FullForm->ADOTableFull->Delete();
+   FullForm->ADOTableFull->First();
+}                 */
+
+FullForm->ADOQueryFull->Delete();
+FullForm->ADOQueryFull->First();
+
+		ApplicantsForm->ADOConnectionApplicants->Connected=false;
+		ApplicantsForm->ADOConnectionApplicants->Connected=true;
+		ApplicantsForm->ADOTableApplicants->Active=false;
+		ApplicantsForm->ADOTableApplicants->Active=true;
+
+		ApplicantsForm->ADOConnectionKD->Connected=false;
+		ApplicantsForm->ADOConnectionKD->Connected=true;
+		ApplicantsForm->ADOTableKD->Active=false;
+		ApplicantsForm->ADOTableKD->Active=true;
+
+		ApplicantsForm->ADOConnectionPed->Connected=false;
+		ApplicantsForm->ADOConnectionPed->Connected=true;
+		ApplicantsForm->ADOTablePed->Active=false;
+		ApplicantsForm->ADOTablePed->Active=true;
+
+		ApplicantsForm->ADOConnectionEl->Connected=false;
+		ApplicantsForm->ADOConnectionEl->Connected=true;
+		ApplicantsForm->ADOTableEl->Active=false;
+		ApplicantsForm->ADOTableEl->Active=true;
+
+QuestionFullForm->Hide();
+FullForm->Enabled=true;
+FullForm->Show();
+
+
+FullForm->DataSourceFull->DataSet = FullForm->ADOQueryFull;
+
+		FullForm->ADOQueryFull->Active = false;
+		FullForm->ADOQueryFull->SQL->Text = "Select * from Applicants";
+		FullForm->ADOQueryFull->Active = true;
+
+	FullForm->EditPoiskFull->Text = "Введите фамилию абитуриента";
+	FullForm->EditPoiskFull->Font->Color = clGray;
+	FullForm->DateTimePicker->Date=StrToDate("01.01.2020");
+	FullForm->DateTimePicker1->Date=Now();
+
+
+	if (FullForm->EditPoiskFull->Text=="Введите фамилию абитуриента" || FullForm->EditPoiskFull->Text=="") {
+		FullForm->ButtonPoiskFull->Enabled=false;
+	}
+	else
+	{
+		FullForm->ButtonPoiskFull->Enabled=true;
+	}
+	ShowMessage("Абитуриент был удален");
+}
+//---------------------------------------------------------------------------
+void __fastcall TQuestionFullForm::FormClose(TObject *Sender, TCloseAction &Action)
+
+{
+QuestionFullForm->Hide();
+FullForm->Enabled=true;
+FullForm->Show();
+
+  FullForm->DataSourceFull->DataSet = FullForm->ADOTableFull;
+
+	if(FullForm->EditPoiskFull->Text!="Введите фамилию абитуриента")
+	{
+	FullForm->DataSourceFull->DataSet = FullForm->ADOQueryFull;
+
+	FullForm->ADOQueryFull->Active = false;
+	FullForm->ADOQueryFull->SQL->Text = "Select * from Applicants where Surname=" +
+		QuotedStr(FullForm->EditPoiskFull->Text);
+	FullForm->ADOQueryFull->Active = true;
+	}
+
+	if(FullForm->DateTimePicker->Date=="01.01.2020" && FullForm->DateTimePicker->Date==Now())
+	{
+		FullForm->DataSourceFull->DataSet = FullForm->ADOQueryFull;
+
+
+		FullForm->ADOQueryFull->Close();
+		FullForm->ADOQueryFull->SQL->Clear();
+		FullForm->ADOQueryFull->SQL->Add("SELECT * FROM Applicants WHERE [Application date] between :Date1 and :Date2");
+		FullForm->ADOQueryFull->Parameters->ParamByName("Date1")->Value = StrToDate(FullForm->DateTimePicker->Date);
+		FullForm->ADOQueryFull->Parameters->ParamByName("Date2")->Value = StrToDate(FullForm->DateTimePicker1->Date);
+		FullForm->ADOQueryFull->Open();
+
+	if (FullForm->ADOQueryFull->FieldByName("id")->IsNull) {
+		//ShowMessage("Нет абитуриентов, подавших заявку в это время");
+		FullForm->ADOQueryFull->Active = false;
+		FullForm->ADOQueryFull->SQL->Text = "Select * from Applicants";
+		FullForm->ADOQueryFull->Active = true;
+
+		FullForm->DateTimePicker->Date=StrToDate("01.01.2020");
+		FullForm->DateTimePicker1->Date=Now();
+
+		FullForm->ButtonPoiskFull->Enabled=false;
+	}
+	}
+
+}
+//---------------------------------------------------------------------------

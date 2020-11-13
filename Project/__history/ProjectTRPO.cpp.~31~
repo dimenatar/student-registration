@@ -1,0 +1,60 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+#include <tchar.h>
+//---------------------------------------------------------------------------
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
+USEFORM("Question.cpp", QuestionForm);
+USEFORM("Start.cpp", StartForm);
+USEFORM("Registration.cpp", RegistrationForm);
+USEFORM("QuestionFull.cpp", QuestionFullForm);
+USEFORM("Main.cpp", MainForm);
+USEFORM("Authorization.cpp", AuthorizationForm);
+USEFORM("Applicants.cpp", ApplicantsForm);
+USEFORM("Add.cpp", AddToForm);
+USEFORM("Full.cpp", FullForm);
+USEFORM("EditMark.cpp", MarkForm);
+USEFORM("Edit.cpp", EditForm);
+USEFORM("Mesta.cpp", MestaForm);
+//---------------------------------------------------------------------------
+int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
+{
+	try
+	{
+		Application->Initialize();
+		Application->MainFormOnTaskBar = true;
+		TStyleManager::TrySetStyle("Carbon");
+		Application->CreateForm(__classid(TApplicantsForm), &ApplicantsForm);
+		Application->CreateForm(__classid(TStartForm), &StartForm);
+		Application->CreateForm(__classid(TAuthorizationForm), &AuthorizationForm);
+		Application->CreateForm(__classid(TMainForm), &MainForm);
+		Application->CreateForm(__classid(TAddToForm), &AddToForm);
+		Application->CreateForm(__classid(TRegistrationForm), &RegistrationForm);
+		Application->CreateForm(__classid(TEditForm), &EditForm);
+		Application->CreateForm(__classid(TFullForm), &FullForm);
+		Application->CreateForm(__classid(TQuestionForm), &QuestionForm);
+		Application->CreateForm(__classid(TQuestionFullForm), &QuestionFullForm);
+		Application->CreateForm(__classid(TMarkForm), &MarkForm);
+		Application->CreateForm(__classid(TMestaForm), &MestaForm);
+		Application->Run();
+	}
+	catch (Exception &exception)
+	{
+		Application->ShowException(&exception);
+	}
+	catch (...)
+	{
+		try
+		{
+			throw Exception("");
+		}
+		catch (Exception &exception)
+		{
+			Application->ShowException(&exception);
+		}
+	}
+	return 0;
+}
+//---------------------------------------------------------------------------

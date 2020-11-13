@@ -1,0 +1,52 @@
+//---------------------------------------------------------------------------
+
+#ifndef AddH
+#define AddH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.ComCtrls.hpp>
+#include <Data.DB.hpp>
+#include <Data.Win.ADODB.hpp>
+//---------------------------------------------------------------------------
+class TAddToForm : public TForm
+{
+__published:	// IDE-managed Components
+	TEdit *AverageMarkEdit;
+	TEdit *SurnameEdit;
+	TEdit *NameEdit;
+	TDateTimePicker *DateTimePicker;
+	TComboBox *ComboBoxSpeciality;
+	TButton *ButtonAdd;
+	TLabel *LabelDateChoose;
+	TLabel *Label1;
+	TADOConnection *ADOConnectionAddTo;
+	TADOQuery *ADOQueryAddTo;
+	TDataSource *DataSourceAddTo;
+	TADOTable *ADOTableAddTo;
+	TADOConnection *ADOConnectionKolMest;
+	TADOTable *ADOTableKolMest;
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall FormActivate(TObject *Sender);
+	void __fastcall SurnameEditMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y);
+	void __fastcall SurnameEditExit(TObject *Sender);
+	void __fastcall NameEditMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y);
+	void __fastcall NameEditExit(TObject *Sender);
+	void __fastcall AverageMarkEditMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y);
+	void __fastcall AverageMarkEditExit(TObject *Sender);
+	void __fastcall AverageMarkEditKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall ButtonAddClick(TObject *Sender);
+
+private:	// User declarations
+public:		// User declarations
+	__fastcall TAddToForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TAddToForm *AddToForm;
+//---------------------------------------------------------------------------
+#endif

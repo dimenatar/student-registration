@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Add.h"
+#include "Applicants.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TAddForm *AddForm;
+//---------------------------------------------------------------------------
+__fastcall TAddForm::TAddForm(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TAddForm::FormClose(TObject *Sender, TCloseAction &Action)
+{
+Application->Terminate();
+}
+//---------------------------------------------------------------------------
+void __fastcall TAddForm::ButtonBackClick(TObject *Sender)
+{
+AddForm->Hide();
+ApplicantsForm->Show();
+}
+//---------------------------------------------------------------------------

@@ -1,0 +1,82 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'MainForm'
+  ClientHeight = 410
+  ClientWidth = 332
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PanelMenu: TPanel
+    Left = 8
+    Top = 63
+    Width = 345
+    Height = 521
+    Color = clNone
+    ParentBackground = False
+    TabOrder = 0
+    object LabelBookList: TLabel
+      Left = 19
+      Top = 40
+      Width = 287
+      Height = 48
+      Cursor = crHandPoint
+      Caption = #1040#1073#1080#1090#1091#1088#1080#1077#1085#1090#1099
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clSilver
+      Font.Height = -48
+      Font.Name = 'Fixedsys'
+      Font.Style = [fsItalic, fsUnderline]
+      ParentFont = False
+    end
+    object LabelGenreList: TLabel
+      Left = 19
+      Top = 128
+      Width = 143
+      Height = 48
+      Cursor = crHandPoint
+      Caption = #1046#1072#1085#1088#1099
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clSilver
+      Font.Height = -48
+      Font.Name = 'Fixedsys'
+      Font.Style = [fsItalic, fsUnderline]
+      ParentFont = False
+    end
+    object LabelRecomendation: TLabel
+      Left = 19
+      Top = 226
+      Width = 311
+      Height = 48
+      Cursor = crHandPoint
+      Caption = #1056#1077#1082#1086#1084#1077#1085#1076#1072#1094#1080#1080
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clSilver
+      Font.Height = -48
+      Font.Name = 'Fixedsys'
+      Font.Style = [fsItalic, fsUnderline]
+      ParentFont = False
+    end
+    object LabelFavorite: TLabel
+      Left = 19
+      Top = 337
+      Width = 239
+      Height = 48
+      Cursor = crHandPoint
+      Caption = #1048#1079#1073#1088#1072#1085#1085#1086#1077
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clSilver
+      Font.Height = -48
+      Font.Name = 'Fixedsys'
+      Font.Style = [fsItalic, fsUnderline]
+      ParentFont = False
+    end
+  end
+end

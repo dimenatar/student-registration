@@ -1,0 +1,352 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "EditMark.h"
+#include "Applicants.h"
+#include "Start.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TMarkForm *MarkForm;
+
+  float averageMark;
+double markPoit;
+double markKd;
+double markPed;
+double markEl;
+//---------------------------------------------------------------------------
+__fastcall TMarkForm::TMarkForm(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TMarkForm::MarkEditExit(TObject *Sender)
+{
+	if (MarkEdit->Text == "") {
+		MarkEdit->Text = "Введите средний балл*";
+		MarkEdit->Font->Color = clBlack;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TMarkForm::MarkEditKeyPress(TObject *Sender, System::WideChar &Key)
+
+{
+	switch (Key) {
+	case '0':
+	case '1':
+	case '2':
+	case '3':
+	case '4':
+	case '5':
+	case '6':
+	case '7':
+	case '8':
+	case '9':
+	case 8:
+		break;
+	case ',': {
+			Key = ',';
+			if (MarkEdit->Text.Pos(Key) != 0)
+				Key = 0;
+			break;
+		}
+	default:
+		Key = 0;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TMarkForm::MarkEditMouseDown(TObject *Sender, TMouseButton Button,
+          TShiftState Shift, int X, int Y)
+{
+	if (MarkEdit->Text == "Введите средний балл*") {
+		MarkEdit->Text = "";
+		MarkEdit->Font->Color = clBlack;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TMarkForm::ButtonAddMarkClick(TObject *Sender)
+{
+if(ComboBoxSpecialityMark->ItemIndex==-1 || MarkEdit->Text=="Введите средний балл*"
+|| MarkEdit->Text=="" || StrToFloat(MarkEdit->Text) > 10 )
+{
+	ShowMessage("Данные введены неверно");
+	/*MarkEdit->Text="Введите средний балл*";
+	ComboBoxSpecialityMark->ItemIndex=-1; */
+}
+else
+{
+
+	averageMark = StrToFloat(MarkEdit->Text);
+
+	ApplicantsForm->ADOTableMark->Open();
+	ApplicantsForm->ADOTableMark->First();
+
+
+	if(ComboBoxSpecialityMark->ItemIndex==0)
+	{
+	while(!ApplicantsForm->ADOTableMark->Eof)
+	{
+	if(ApplicantsForm->ADOTableMark->FieldByName("Speciality")->AsString=="ПОИТ")
+	{
+		//ADOTableKolMest->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Edit();
+		ApplicantsForm->DataSourceMark->DataSet->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Post();
+	}
+	ApplicantsForm->ADOTableMark->Next();
+	}
+	}
+
+	if(ComboBoxSpecialityMark->ItemIndex==1)
+	{
+	while(!ApplicantsForm->ADOTableMark->Eof)
+	{
+	if(ApplicantsForm->ADOTableMark->FieldByName("Speciality")->AsString=="КД")
+	{
+		//ADOTableKolMest->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Edit();
+		ApplicantsForm->DataSourceMark->DataSet->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Post();
+	}
+	ApplicantsForm->ADOTableMark->Next();
+	}
+	}
+
+	if(ComboBoxSpecialityMark->ItemIndex==2)
+	{
+	while(!ApplicantsForm->ADOTableMark->Eof)
+	{
+	if(ApplicantsForm->ADOTableMark->FieldByName("Speciality")->AsString=="Педагогика")
+	{
+		//ADOTableKolMest->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Edit();
+		ApplicantsForm->DataSourceMark->DataSet->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Post();
+	}
+	ApplicantsForm->ADOTableMark->Next();
+	}
+	}
+
+	if(ComboBoxSpecialityMark->ItemIndex==3)
+	{
+	while(!ApplicantsForm->ADOTableMark->Eof)
+	{
+	if(ApplicantsForm->ADOTableMark->FieldByName("Speciality")->AsString=="Электроснабжение")
+	{
+		//ADOTableKolMest->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Edit();
+		ApplicantsForm->DataSourceMark->DataSet->FieldByName("Passing score")->Value = averageMark;
+		ApplicantsForm->DataSourceMark->DataSet->Post();
+	}
+	ApplicantsForm->ADOTableMark->Next();
+	}
+	}
+
+		ApplicantsForm->ADOConnectionApplicants->Connected=false;
+		ApplicantsForm->ADOConnectionApplicants->Connected=true;
+		ApplicantsForm->ADOTableApplicants->Active=false;
+		ApplicantsForm->ADOTableApplicants->Active=true;
+
+		ApplicantsForm->ADOConnectionKD->Connected=false;
+		ApplicantsForm->ADOConnectionKD->Connected=true;
+		ApplicantsForm->ADOTableKD->Active=false;
+		ApplicantsForm->ADOTableKD->Active=true;
+
+		ApplicantsForm->ADOConnectionPed->Connected=false;
+		ApplicantsForm->ADOConnectionPed->Connected=true;
+		ApplicantsForm->ADOTablePed->Active=false;
+		ApplicantsForm->ADOTablePed->Active=true;
+
+		ApplicantsForm->ADOConnectionEl->Connected=false;
+		ApplicantsForm->ADOConnectionEl->Connected=true;
+		ApplicantsForm->ADOTableEl->Active=false;
+		ApplicantsForm->ADOTableEl->Active=true;
+
+		ApplicantsForm->ADOTableMark->Open();
+		ApplicantsForm->ADOTableMark->First();
+		while(!MarkForm->ADOTableMark->Eof)
+		{
+		   if(MarkForm->ADOTableMark->FieldByName("Speciality")->Value=="ПОИТ")
+		   {
+				markPoit = MarkForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				ApplicantsForm->LabelPoit->Caption = FloatToStr( RoundTo(markPoit, -1) );
+		   }
+
+		   //MarkForm->ADOTableMark->Next();
+
+		   if(ApplicantsForm->ADOTableMark->FieldByName("Speciality")->Value=="КД")
+		   {
+				markKd = ApplicantsForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				ApplicantsForm->LabelKd->Caption = FloatToStr( RoundTo(markKd, -1) );
+				/*markKd = ADOTableMark->FieldByName("Passing score")->AsFloat;
+				ApplicantsForm->LabelKd->Caption = FloatToStr( RoundTo(markKd, -1) );*/
+		   }
+
+		  // MarkForm->ADOTableMark->Next();
+
+		   if(MarkForm->ADOTableMark->FieldByName("Speciality")->Value=="Педагогика")
+		   {
+				markPed = MarkForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				ApplicantsForm->LabelPed->Caption = FloatToStr( RoundTo(markPed, -1) );
+		   }
+
+		   //MarkForm->ADOTableMark->Next();
+
+		   if(MarkForm->ADOTableMark->FieldByName("Speciality")->Value=="Электроснабжение")
+		   {
+				markEl = MarkForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				ApplicantsForm->LabelEl->Caption = FloatToStr( RoundTo(markEl, -1) );
+		   }
+
+		  // MarkForm->ADOTableMark->Next();
+
+		   if(MarkForm->ADOTableMark->FieldByName("Speciality")->Value=="ПОИТ")
+		   {
+				markPoit = MarkForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				StartForm->LabelPoit->Caption = FloatToStr( RoundTo(markPoit, -1) );
+		   }
+
+		  // MarkForm->ADOTableMark->Next();
+
+		   if(MarkForm->ADOTableMark->FieldByName("Speciality")->Value=="КД")
+		   {
+				markKd = MarkForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				StartForm->LabelKd->Caption = FloatToStr( RoundTo(markKd, -1) );
+		   }
+
+		   //MarkForm->ADOTableMark->Next();
+
+		   if(MarkForm->ADOTableMark->FieldByName("Speciality")->Value=="Педагогика")
+		   {
+				markPed = MarkForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				StartForm->LabelPed->Caption = FloatToStr( RoundTo(markPed, -1) );
+		   }
+
+		   //MarkForm->ADOTableMark->Next();
+
+		   if(MarkForm->ADOTableMark->FieldByName("Speciality")->Value=="Электроснабжение")
+		   {
+				markEl = MarkForm->ADOTableMark->FieldByName("Passing score")->AsFloat;
+				StartForm->LabelEl->Caption = FloatToStr( RoundTo(markEl, -1) );
+		   }
+
+		   MarkForm->ADOTableMark->Next();
+		}
+
+
+		 ApplicantsForm->ADOTableMark->Close();
+
+		 ApplicantsForm->ADOTableMark->Active=false;
+         ApplicantsForm->ADOTableMark->Active=true;
+
+		ShowMessage("Средний балл был изменен");
+		MarkEdit->Text="Введите средний балл*";
+ComboBoxSpecialityMark->ItemIndex=-1;
+ComboBoxSpecialityMark->Text="Для специальности";
+MarkForm->Hide();
+
+		/*ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOTableApplicants;
+		ApplicantsForm->DataSourceKD->DataSet = ApplicantsForm->ADOTableKD;
+		ApplicantsForm->DataSourcePed->DataSet = ApplicantsForm->ADOTablePed;
+		ApplicantsForm->DataSourceEl->DataSet = ApplicantsForm->ADOTableEl;   */
+
+
+
+//////////////////////////////
+	ApplicantsForm->DataSourceApplicants->DataSet = ApplicantsForm->ADOQueryApplicants;
+
+		ApplicantsForm->ADOQueryApplicants->Active = false;
+		ApplicantsForm->ADOQueryApplicants->SQL->Text = "Select * from ApplicantsPoit";
+		ApplicantsForm->ADOQueryApplicants->Active = true;
+
+	ApplicantsForm->EditPoisk->Text = "Введите фамилию абитуриента";
+	ApplicantsForm->EditPoisk->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoisk->Text=="Введите фамилию абитуриента" || ApplicantsForm->EditPoisk->Text=="") {
+		ApplicantsForm->ButtonPoisk->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoisk->Enabled=true;
+	}
+//////////////////////////////
+	ApplicantsForm->DataSourceKD->DataSet = ApplicantsForm->ADOQueryKD;
+
+		ApplicantsForm->ADOQueryKD->Active = false;
+		ApplicantsForm->ADOQueryKD->SQL->Text = "Select * from ApplicantsKd";
+		ApplicantsForm->ADOQueryKD->Active = true;
+
+	ApplicantsForm->EditPoiskKD->Text = "Введите фамилию абитуриента";
+	ApplicantsForm->EditPoiskKD->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoiskKD->Text=="Введите фамилию абитуриента" || ApplicantsForm->EditPoiskKD->Text=="") {
+		ApplicantsForm->ButtonPoiskKD->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoiskKD->Enabled=true;
+	}
+//////////////////////////////
+	ApplicantsForm->DataSourcePed->DataSet = ApplicantsForm->ADOQueryPed;
+
+		ApplicantsForm->ADOQueryPed->Active = false;
+		ApplicantsForm->ADOQueryPed->SQL->Text = "Select * from ApplicantsPed";
+		ApplicantsForm->ADOQueryPed->Active = true;
+
+	ApplicantsForm->EditPoiskPed->Text = "Введите фамилию абитуриента";
+	ApplicantsForm->EditPoiskPed->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoiskPed->Text=="Введите фамилию абитуриента" || ApplicantsForm->EditPoiskPed->Text=="") {
+		ApplicantsForm->ButtonPoiskPed->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoiskPed->Enabled=true;
+	}
+//////////////////////////////
+ApplicantsForm->DataSourceEl->DataSet = ApplicantsForm->ADOQueryEl;
+
+		ApplicantsForm->ADOQueryEl->Active = false;
+		ApplicantsForm->ADOQueryEl->SQL->Text = "Select * from ApplicantsEl";
+		ApplicantsForm->ADOQueryEl->Active = true;
+
+	ApplicantsForm->EditPoiskEl->Text = "Введите фамилию абитуриента";
+	ApplicantsForm->EditPoiskEl->Font->Color = clGray;
+
+
+			if (ApplicantsForm->EditPoiskEl->Text=="Введите фамилию абитуриента" || ApplicantsForm->EditPoiskEl->Text=="") {
+		ApplicantsForm->ButtonPoiskEl->Enabled=false;
+	}
+	else
+	{
+		ApplicantsForm->ButtonPoiskEl->Enabled=true;
+	}
+
+   }
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TMarkForm::FormActivate(TObject *Sender)
+{
+
+MarkEdit->Enabled=true;
+ComboBoxSpecialityMark->Enabled=true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TMarkForm::FormClose(TObject *Sender, TCloseAction &Action)
+{
+ApplicantsForm->Show();
+MarkForm->Hide();
+
+MarkEdit->Text="Введите средний балл*";
+ComboBoxSpecialityMark->ItemIndex=-1;
+ComboBoxSpecialityMark->Text="Для специальности";
+
+
+}
+//---------------------------------------------------------------------------

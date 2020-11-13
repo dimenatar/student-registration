@@ -1,0 +1,204 @@
+object RegistrationForm: TRegistrationForm
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'RegistrationForm'
+  ClientHeight = 262
+  ClientWidth = 471
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnActivate = FormActivate
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object LabelAuthorization: TLabel
+    Left = 156
+    Top = 211
+    Width = 168
+    Height = 20
+    Cursor = crHandPoint
+    Caption = #1055#1077#1088#1077#1081#1090#1080' '#1082' '#1072#1074#1090#1086#1088#1080#1079#1072#1094#1080#1080
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Palatino Linotype'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    OnClick = LabelAuthorizationClick
+  end
+  object loginEdit: TEdit
+    Left = 58
+    Top = 72
+    Width = 169
+    Height = 24
+    Enabled = False
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clSilver
+    Font.Height = -13
+    Font.Name = 'Bahnschrift'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    Text = #1051#1086#1075#1080#1085
+    OnExit = loginEditExit
+    OnMouseDown = loginEditMouseDown
+  end
+  object passwordEdit: TEdit
+    Left = 233
+    Top = 72
+    Width = 169
+    Height = 24
+    Enabled = False
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clSilver
+    Font.Height = -13
+    Font.Name = 'Bahnschrift'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    Text = #1055#1072#1088#1086#1083#1100
+    OnChange = passwordEditChange
+    OnExit = passwordEditExit
+    OnMouseDown = passwordEditMouseDown
+  end
+  object registrationButton: TButton
+    Left = 112
+    Top = 148
+    Width = 265
+    Height = 57
+    Cursor = crHandPoint
+    Caption = #1047#1072#1088#1077#1075#1080#1089#1090#1088#1080#1088#1086#1074#1072#1090#1100#1089#1103
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Bahnschrift'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    OnClick = registrationButtonClick
+  end
+  object SurnameEdit: TEdit
+    Left = 58
+    Top = 24
+    Width = 169
+    Height = 24
+    Enabled = False
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clSilver
+    Font.Height = -13
+    Font.Name = 'Bahnschrift'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    Text = #1060#1072#1084#1080#1083#1080#1103
+    OnExit = SurnameEditExit
+    OnMouseDown = SurnameEditMouseDown
+  end
+  object NameEdit: TEdit
+    Left = 233
+    Top = 24
+    Width = 169
+    Height = 24
+    Enabled = False
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clSilver
+    Font.Height = -13
+    Font.Name = 'Bahnschrift'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    Text = #1048#1084#1103
+    OnExit = NameEditExit
+    OnMouseDown = NameEditMouseDown
+  end
+  object ButtonVisible: TButton
+    Left = 289
+    Top = 102
+    Width = 113
+    Height = 24
+    Cursor = crHandPoint
+    Caption = #1055#1086#1089#1084#1086#1090#1088#1077#1090#1100'/'#1089#1082#1088#1099#1090#1100
+    Enabled = False
+    TabOrder = 5
+    OnClick = ButtonVisibleClick
+  end
+  object ADOConnectionRegistration: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source=C:\Us' +
+      'ers\Den\Desktop\'#1055#1088#1086#1077#1082#1090' '#1058#1056#1055#1054' '#8212' '#1055#1054#1050#1040' '#1057#1040#1052#1067#1049' '#1056#1040#1041#1054#1063#1048#1049'\Win32\Debug\'#1058#1056#1055 +
+      #1054'_'#1041#1044'.mdb;Mode=Share Deny None;Persist Security Info=False;Jet OL' +
+      'EDB:System database="";Jet OLEDB:Registry Path="";Jet OLEDB:Data' +
+      'base Password="";Jet OLEDB:Engine Type=5;Jet OLEDB:Database Lock' +
+      'ing Mode=1;Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Global ' +
+      'Bulk Transactions=1;Jet OLEDB:New Database Password="";Jet OLEDB' +
+      ':Create System Database=False;Jet OLEDB:Encrypt Database=False;J' +
+      'et OLEDB:Don'#39't Copy Locale on Compact=False;Jet OLEDB:Compact Wi' +
+      'thout Replica Repair=False;Jet OLEDB:SFP=False'
+    LoginPrompt = False
+    Mode = cmShareDenyNone
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
+    Left = 432
+    Top = 184
+  end
+  object ADOQueryRegistration: TADOQuery
+    Connection = ADOConnectionRegistration
+    Parameters = <
+      item
+        Name = 'Log'
+        Attributes = [paNullable]
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 510
+        Value = Null
+      end
+      item
+        Name = 'Pass'
+        Attributes = [paNullable]
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 510
+        Value = Null
+      end
+      item
+        Name = 'Surname'
+        Attributes = [paNullable]
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 510
+        Value = Null
+      end
+      item
+        Name = 'Name'
+        Attributes = [paNullable]
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 510
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'INSERT INTO Users ( Login, Pass, Surname, Name) values(:Log, :Pa' +
+        'ss, :Surname, :Name)')
+    Left = 56
+    Top = 203
+  end
+  object ADOTableRegistration: TADOTable
+    Active = True
+    Connection = ADOConnectionRegistration
+    CursorType = ctStatic
+    TableName = 'Users'
+    Left = 368
+    Top = 211
+  end
+end
